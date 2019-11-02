@@ -3,6 +3,6 @@ module.exports = {
         "repricingResults" : "tmp/repricer/results/"
     },
     "file" : {
-        "maxRecordsInFile" : 4
+        "maxRecordsInFile" : 10
     }
 }

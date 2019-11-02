@@ -8,7 +8,7 @@ app.use(express.urlencoded());
 app.use(express.json());
 
 app.post('/api/reprice', (req, res) => {
-    const body = JSON.stringify(req.body);
+    const body = req.body;
     try {
         fileLogHandler.logRequestTofile(body)
         .then(() => {res.status(202).send()})
@@ -16,6 +16,19 @@ app.post('/api/reprice', (req, res) => {
     } catch(e) {
         console.log(e);
         res.status(400).send();
+    }
+});
+
+app.get('/api/product/:id/price', (req, res) => {
+    const productId = req.params.id;
+    try {
+        fileLogHandler.searchForProductPrice(productId)
+        .then((productInfo) => {res.status(202).send(productInfo)})
+        .catch((err) => {
+            res.status(err.status).send(err.message)
+        });
+    } catch (e) {
+        res.status(500).send();
     }
 });
 
