@@ -1,19 +1,18 @@
-const express = require('express');
-      file =       require('./utils/file');
+const express =           require('express');
+const fileLogHandler =    require('./utils/fileLogHandler');
 
 const app = express();
 const port = 3000;
 
-// Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded());
-// Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
 app.post('/api/reprice', (req, res) => {
     const body = JSON.stringify(req.body);
     try {
-        file.logRequestTofile(body);
-        res.status(202).send();
+        fileLogHandler.logRequestTofile(body)
+        .then(() => {res.status(202).send()})
+        .catch(err => {throw err})
     } catch(e) {
         console.log(e);
         res.status(400).send();
@@ -21,5 +20,5 @@ app.post('/api/reprice', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`server started listening on port ${port}`)
+    console.log(`server is listening on port ${port}`)
 });

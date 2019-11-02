@@ -1,0 +1,11 @@
+work-assumptions: 
+
+- There is no problem to reprice the product to the same price.
+
+- Only this service writes and reads this files.
+(if there are more instances, instead of counting the records as a global variable we will count the amount of records in the file.)
+
+- The program is stable and won't fall.
+(if so, a new id for file will be craeted.)
+
+- A request is sent every second.
