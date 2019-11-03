@@ -1,0 +1,9 @@
+{
+    "latestPrices": {
+        "125" : {
+              "productId": "125",
+              "price": 4.5
+        }
+    },
+    "productId": "125"
+}

@@ -1,0 +1,33 @@
+{
+  "name": "repricingexercise",
+  "version": "1.0.0",
+  "description": "work-assumptions:",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "cron": "^1.7.2",
+    "cron-job": "^1.0.3",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "rewire": "^4.0.1"
+  },
+  "devDependencies": {
+    "assert": "^2.0.0",
+    "mocha": "^6.2.2"
+  },
+  "scripts": {
+    "test": "mocha --exit 'test/unittests/product.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/san-roz/repricingExercise.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/san-roz/repricingExercise/issues"
+  },
+  "homepage": "https://github.com/san-roz/repricingExercise#readme"
+}
