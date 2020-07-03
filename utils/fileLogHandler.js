@@ -6,13 +6,15 @@ let lastPrices =    require('../data/lastPrices');
 
 let amountOfFiles = 0;
 let amountOfRecordsInLastFile = 0;
-const path = config.urls.repricingResults;
-const maxRecordsInFile = config.file.maxRecordsInFile;
+const PATH = config.urls.repricingResults;
+const MAX_RECORDS_IN_FILE = config.file.maxRecordsInFile;
 
 const logRequestTofile = (body) => {
     let filePath;
+
     amountOfRecordsInLastFile++;
-    if (amountOfRecordsInLastFile < maxRecordsInFile) {
+
+    if (amountOfRecordsInLastFile < MAX_RECORDS_IN_FILE) {
         filePath = getRecentFilePath();
         return updatePrice(filePath, body)
         .catch(error => Promise.reject(error))
@@ -37,6 +39,7 @@ const updatePrice = (filePath, body) => {
         "newPrice" : newPrice,
         "timestamp" : lastUpdatedDate
     }
+
     return file.writeToFile(filePath, productInfo)
     .then(() => {
         lastPrices[body.productId] = {
@@ -47,22 +50,23 @@ const updatePrice = (filePath, body) => {
 }
 
 const searchForProductPrice = (productId) => {
-    if(lastPrices[productId] == undefined) return Promise.reject(errors.NOT_FOUND("product"))
-    let productInfo = {"productId" : productId, ...lastPrices[productId]}
+    if(lastPrices[productId] == undefined) return Promise.reject(errors.NOT_FOUND("product"));
+    let productInfo = {"productId" : productId, ...lastPrices[productId]};
     return Promise.resolve(productInfo);
 }
 
+// open new file every second
 new CronJob('* * * * * *', () => {
     file.openNewFile(getNewFilePath());
 }, null, true);
 
 const getNewFilePath = () => {
     amountOfFiles++;
-    return (path + amountOfFiles);
+    return (PATH + amountOfFiles);
 } 
 
 const getRecentFilePath = () => {
-    return (path + amountOfFiles);
+    return (PATH + amountOfFiles);
 }
 
 module.exports = {
